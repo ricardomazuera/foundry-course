@@ -1,6 +1,6 @@
 # Loading environment variables 
 ifeq (,$(wildcard .env))
-  $(error "El archivo .env no existe")
+  $(error "The file .env doesn't exists")
 else
   include .env
   export
