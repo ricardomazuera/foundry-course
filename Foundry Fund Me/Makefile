@@ -1,7 +1,17 @@
+ifeq (,$(wildcard .env))
+  $(error "The file .env doesn't exists")
+else
+  include .env
+  export
+endif
 
-run-tests:
+run-unittests:
+	@echo "Running unit tests..."
+	forge test -vvv
+
+run-forked-tests:
 	@echo "Running tests..."
-	forge test
+	forge test -vvv --fork-url $$SEPOLIA_RPC_URL
 
 run-script:
 	@echo "Running script..."
