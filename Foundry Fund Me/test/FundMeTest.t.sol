@@ -105,4 +105,30 @@ contract FundMeTest is Test {
             "Owner balance should be 75"
         );
     }
+
+    function testWithdrawFromMultipleFundersCheaper() public funded {
+        // if we want work with addresses, the number should be uint160
+        uint160 numberOfFunders = 10;
+        uint160 startingFunderIndex = 1;
+        for (uint160 i = startingFunderIndex; i < numberOfFunders; i++) {
+            // vm.prank and vm.deal combined = hoax()
+            hoax(address(i), 5e18);
+            fundMe.fund{value: SEND_VALUE}();
+        }
+
+        uint256 startingOwnerBalance = fundMe.getOwner().balance;
+        uint256 startingFundMeBalance = address(fundMe).balance;
+
+        vm.startPrank(fundMe.getOwner());
+        fundMe.cheaperWithdraw();
+        vm.stopPrank();
+
+        // Assert
+        assert(address(fundMe).balance == 0);
+        assertEq(
+            fundMe.getOwner().balance,
+            startingOwnerBalance + startingFundMeBalance,
+            "Owner balance should be 75"
+        );
+    }
 }

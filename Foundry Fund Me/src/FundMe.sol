@@ -77,6 +77,10 @@ contract FundMe {
         require(success);
     }
 
+    /*
+        This function is a cheaper way to withdraw funds
+        It is more gas efficient
+    */
     function cheaperWithdraw() public onlyOwner {
         address[] memory funders = s_funders;
         // mappings can't be in memory, sorry!
