@@ -11,3 +11,7 @@ You need install the following packages to run the project:
     ```
     forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
     ```
+
+    ```
+    forge install Cyfrin/foundry-devops --no-commit
+    ```
